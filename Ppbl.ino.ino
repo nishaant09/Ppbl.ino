@@ -13,7 +13,6 @@ int blinkPin = 7 ; // pin to blink led at each beat
 int fadePin = 13; // pin to do fancy classy fading blink at each beat
 int fadeRate = 0; // used to fade LED on with PWM on fadePin
  
-// Volatile Variables, used in the interrupt service routine!
  
 volatile int BPM; // int that holds raw Analog in 0. updated every 2mS
 volatile int Signal; // holds the incoming raw data
@@ -21,17 +20,16 @@ volatile int IBI = 600; // int that holds the time interval between beats! Must 
 volatile boolean Pulse = false; // "True" when User's live heartbeat is detected. "False" when nota "live beat".
 volatile boolean QS = false; // becomes true when Arduoino finds a beat.
  
-// Regards Serial OutPut -- Set This Up to your needs
-static boolean serialVisual = true; // Set to 'false' by Default. Re-set to 'true' to see Arduino Serial Monitor ASCII Visual Pulse
+static boolean serialVisual = true; 
 volatile int rate[10]; // array to hold last ten IBI values
 volatile unsigned long sampleCounter = 0; // used to determine pulse timing
-volatile unsigned long lastBeatTime = 0; // used to find IBI
-volatile int P = 512; // used to find peak in pulse wave, seeded
-volatile int T = 512; // used to find trough in pulse wave, seeded
+volatile unsigned long lastBeatTime = 0; 
+volatile int P = 512; 
+volatile int T = 512; 
 volatile int thresh = 525; // used to find instant moment of heart beat, seeded
 volatile int amp = 100; // used to hold amplitude of pulse waveform, seeded
-volatile boolean firstBeat = true; // used to seed rate array so we startup with reasonable BPM
-volatile boolean secondBeat = false; // used to seed rate array so we startup with reasonable BPM
+volatile boolean firstBeat = true; 
+volatile boolean secondBeat = false; 
  
 void setup()
 {
@@ -40,12 +38,7 @@ pinMode(blinkPin,OUTPUT); // pin that will blink to your heartbeat!
 pinMode(fadePin,OUTPUT); // pin that will fade to your heartbeat!
 Serial.begin(115200); // we agree to talk fast!
 interruptSetup(); // sets up to read Pulse Sensor signal every 2mS
- 
-// IF YOU ARE POWERING The Pulse Sensor AT VOLTAGE LESS THAN THE BOARD VOLTAGE,
- 
-// UN-COMMENT THE NEXT LINE AND APPLY THAT VOLTAGE TO THE A-REF PIN
- 
-// analogReference(EXTERNAL);
+
  
 lcd.clear();
 lcd.setCursor(0,0);
@@ -87,10 +80,10 @@ if (QS == true) // A Heartbeat Was Found
 {
  
 // BPM and IBI have been Determined
-// Quantified Self "QS" true when arduino finds a heartbeat
-fadeRate = 255; // Makes the LED Fade Effect Happen, Set 'fadeRate' Variable to 255 to fade LED with pulse
-serialOutputWhenBeatHappens(); // A Beat Happened, Output that to serial.
-QS = false; // reset the Quantified Self flag for next time
+
+fadeRate = 255; 
+serialOutputWhenBeatHappens(); .
+QS = false; 
 }
 ledFadeToBeat(); // Makes the LED Fade Effect Happen
 delay(20); // take a break
@@ -105,7 +98,7 @@ analogWrite(fadePin,fadeRate); // fade LED
 }
 void interruptSetup()
 {
-// Initializes Timer2 to throw an interrupt every 2mS.
+
 TCCR2A = 0x02; // DISABLE PWM ON DIGITAL PINS 3 AND 11, AND GO INTO CTC MODE
 TCCR2B = 0x06; // DON'T FORCE COMPARE, 256 PRESCALER
 OCR2A = 0X7C; // SET THE TOP OF THE COUNT TO 124 FOR 500Hz SAMPLE RATE
@@ -299,7 +292,7 @@ ser.println(cmd);
 Serial.println(cmd);
 delay(1000);
 ser.print(getStr);
-Serial.println(getStr); //thingspeak needs 15 sec delay between updates
+Serial.println(getStr); 
 delay(3000);
 }
 void read_temp()
