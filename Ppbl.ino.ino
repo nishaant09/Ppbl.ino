@@ -82,7 +82,7 @@ if (QS == true) // A Heartbeat Was Found
 // BPM and IBI have been Determined
 
 fadeRate = 255; 
-serialOutputWhenBeatHappens(); .
+serialOutputWhenBeatHappens(); 
 QS = false; 
 }
 ledFadeToBeat(); // Makes the LED Fade Effect Happen
